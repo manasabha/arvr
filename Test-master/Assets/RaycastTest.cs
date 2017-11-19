@@ -14,13 +14,17 @@ public class RaycastTest : MonoBehaviour {
     //	bool startMoving = false;
     private int j;
     private int count;
+    public int[] countperCube; 
     void Start()
     {
         j =0;
         cubes=  GameObject.FindGameObjectsWithTag("cube");
+        countperCube = new int[cubes.Length];
+        countperCube[0] = 0;
         for (int i = 1; i < cubes.Length; i++)
         {
             cubes[i].SetActive(false);
+            countperCube[i] = 0;
         }
         count = 0;
     }
@@ -48,16 +52,18 @@ public class RaycastTest : MonoBehaviour {
                         touchedObject.SetActive(false);
                         if ((j >= cubes.Length - 1) && (!cubes[cubes.Length - 1].activeSelf))
                         {
+//                            countperCube[j] = count - 1;
                             j = 0;
                             count = 0;
-                            myText.text = "Reset j" + j;
+                            myText.text = "all counts " + countperCube[0]+ " "+ countperCube[1] + " " + countperCube[2] + " " + countperCube[3];
                             cubes[j].SetActive(true);
                         }
                         else
                         {
+                            countperCube[j] = count - 1;
                             cubes[j + 1].SetActive(true);
                             j++;
-                            mytouchText.text = " Success after " + (count-1);
+//                            mytouchText.text = " Success after " + (count-1);
                             count = 0;
                         }
                         //Repeat this  
